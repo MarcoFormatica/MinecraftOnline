@@ -95,7 +95,7 @@ public class Character : NetworkBehaviour
             Block blockHit = infoAboutTheRay.collider.gameObject.GetComponent<Block>();
             if (blockHit != null)
             {
-                FindObjectOfType<GameManager>().RPC_SpawnCube(blockHit.gameObject.transform.position + infoAboutTheRay.normal, typeforNewBlocks, 0);
+                FindObjectOfType<GameManager>().RPC_SpawnCube(blockHit.gameObject.transform.position + infoAboutTheRay.normal, (int)typeforNewBlocks, 0);
             }
         }
     }
