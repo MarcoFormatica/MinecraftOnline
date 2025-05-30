@@ -107,6 +107,19 @@ public class Block : NetworkBehaviour
         }
     }
 
+    public void LocalSetHp(int predictedHp)
+    {
+        if (predictedHp <= 0)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            RefreshBlockBrightness(predictedHp);
+        }
+
+    }
+
     public void ReplicatedDestroy()
     {
         Runner.Despawn(GetComponent<NetworkObject>());
@@ -114,7 +127,12 @@ public class Block : NetworkBehaviour
 
     public void RefreshBlockBrightness()
     {
-        GetComponent<MeshRenderer>().material.color = Color.white * ((float)Hp / HpMax);
+        RefreshBlockBrightness(Hp);
+    }
+
+    public void RefreshBlockBrightness(int hpToShow)
+    {
+        GetComponent<MeshRenderer>().material.color = Color.white * ((float)hpToShow / HpMax);
     }
 
     public override void Spawned()

@@ -73,6 +73,7 @@ public class Character : NetworkBehaviour
                     if (blockHit.Indestructible == 0)
                     {
                         blockHit.RPC_SetHp(blockHit.Hp - 1);
+                        blockHit.LocalSetHp(blockHit.Hp - 1);
                     }
  
                 }
