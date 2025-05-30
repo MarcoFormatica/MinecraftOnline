@@ -50,7 +50,7 @@ public class Block : NetworkBehaviour
     public int Hp { get; set; }
 
     [Networked, OnChangedRender(nameof(RefreshBlockAesthetic))]
-    public EblockType Type { get; set; }
+    public int Type { get; set; }
 
     [Networked]
     public int Indestructible { get; set; }
@@ -72,14 +72,14 @@ public class Block : NetworkBehaviour
         SerializableBlock serializableBlock = new SerializableBlock();
         serializableBlock.hp = Hp;
         serializableBlock.indestructible = Indestructible;
-        serializableBlock.blockType = Type;
+        serializableBlock.blockType = (EblockType) Type;
         serializableBlock.position = transform.position;
         return serializableBlock;
     }
 
     public void InitializeBlock(EblockType blockType)
     {
-        Type = blockType;
+        Type = (int)blockType;
         BlockConfiguration blockConfigurationSelected = blockConfigurationDatabase.Find(x => x.type == blockType);
 
         RefreshBlockAesthetic();
@@ -89,7 +89,7 @@ public class Block : NetworkBehaviour
 
     public void RefreshBlockAesthetic()
     {
-        BlockConfiguration blockConfigurationSelected = blockConfigurationDatabase.Find(x => x.type == Type);
+        BlockConfiguration blockConfigurationSelected = blockConfigurationDatabase.Find(x => x.type == (EblockType)Type);
         GetComponent<MeshRenderer>().material.mainTexture = blockConfigurationSelected.texture;
     }
 
