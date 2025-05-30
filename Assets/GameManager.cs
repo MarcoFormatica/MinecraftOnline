@@ -20,7 +20,7 @@ public class GameManager : NetworkBehaviour
             for (int i = 0; i < 30; i++)
             {
                 Debug.Log("i");
-                SpawnCube(new Vector3(i,0,j), (int)EblockType.Erba,1);
+                SpawnCubeLocal(new Vector3(i,0,j), (int)EblockType.Erba,1);
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -30,12 +30,12 @@ public class GameManager : NetworkBehaviour
     public void RPC_SpawnCube(Vector3 position, int type, int indestructable)
     {
         Debug.Log(nameof(RPC_SpawnCube));
-        SpawnCube(position, type, indestructable);
+        SpawnCubeLocal(position, type, indestructable);
     }
 
-    private void SpawnCube(Vector3 position, int type, int indestructable)
+    private void SpawnCubeLocal(Vector3 position, int type, int indestructable)
     {
-        Debug.Log(nameof(SpawnCube) + position.ToString());
+        Debug.Log(nameof(SpawnCubeLocal) + position.ToString());
         NetworkObject spawnedBlockGO = Runner.Spawn(blockPrefab, position);
         spawnedBlockGO.GetComponent<Block>().InitializeBlock((EblockType)type);
         spawnedBlockGO.GetComponent<Block>().Indestructible = indestructable;

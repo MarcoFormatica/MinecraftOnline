@@ -115,7 +115,7 @@ public class Block : NetworkBehaviour
         }
         else
         {
-            RefreshBlockBrightness(predictedHp);
+            RefreshBlockBrightnessWithParameter(predictedHp);
         }
 
     }
@@ -127,10 +127,10 @@ public class Block : NetworkBehaviour
 
     public void RefreshBlockBrightness()
     {
-        RefreshBlockBrightness(Hp);
+        RefreshBlockBrightnessWithParameter(Hp);
     }
 
-    public void RefreshBlockBrightness(int hpToShow)
+    public void RefreshBlockBrightnessWithParameter(int hpToShow)
     {
         GetComponent<MeshRenderer>().material.color = Color.white * ((float)hpToShow / HpMax);
     }
