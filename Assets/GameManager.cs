@@ -8,9 +8,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(FindObjectOfType<MainMenuController>().shouldLoad==false)
-        {
-            for (int j = 0; j < 30; j++)
+       
+            for (int j = 0; j < 10; j++)
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -20,7 +19,7 @@ public class GameManager : MonoBehaviour
                     spawnedBlockGO.GetComponent<Block>().indestructible = true;
                 }
             }
-        }
+        
     }
 
     // Update is called once per frame

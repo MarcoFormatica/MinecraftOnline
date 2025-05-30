@@ -14,18 +14,16 @@ public class Character : MonoBehaviour
     public EblockType typeforNewBlocks;
     public List<EblockType> blockTypesIAmAllowedToUse;
     public GameObject previewBlock;
-    public int numberOfCreatedBlocks;
-    public GameObject menu;
-    public GameObject saveGameText;
 
     // Start is called before the first frame update
     void Start()
     {
         SetTypeForNewBlocks(blockTypesIAmAllowedToUse.First());
-        if (FindObjectOfType<MainMenuController>().shouldLoad == true)
+      /*  if (FindObjectOfType<MainMenuController>().shouldLoad == true)
         {
             LoadWorld();
         }
+      */
     }
 
 
@@ -33,16 +31,7 @@ public class Character : MonoBehaviour
     void Update()
     {
 
-        if (menu.activeSelf) 
-        {
-            return;
-        }
 
-
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            OpenMenu();
-        }
 
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if(mouseWheel > 0)
@@ -56,13 +45,10 @@ public class Character : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            ActivateMachineGun();
+            // ActivateMachineGun();
+            PlaceABlockWithRaycast();
         }
 
-        if(Input.GetMouseButtonUp(0))
-        {
-            DeactivateMachineGun();
-        }
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -103,7 +89,7 @@ public class Character : MonoBehaviour
                 GameObject spawnedBlockGO = Instantiate(blockPrefab);
                 spawnedBlockGO.GetComponent<Block>().InitializeBlock(typeforNewBlocks);
                 spawnedBlockGO.transform.position = blockHit.gameObject.transform.position + infoAboutTheRay.normal;
-                numberOfCreatedBlocks = numberOfCreatedBlocks + 1;
+
 
 
             }
@@ -160,9 +146,6 @@ public class Character : MonoBehaviour
         PlayerPrefs.SetString("Salvataggio", saveJson);
         PlayerPrefs.Save();
 
-        ActivateSaveText();
-
-        Invoke(nameof(DeactivateSaveText), 3);
 
        
        // DeactivateSaveText();
@@ -199,39 +182,8 @@ public class Character : MonoBehaviour
         Application.Quit();
     }
 
-    public void OpenMenu()
-    {
-        SetMenuVisible(true);
-    }
-    public void CloseMenu()
-    {
-        SetMenuVisible(false);
-    }
-
-    public void SetMenuVisible(bool isVisible) 
-    {
-        menu.SetActive(isVisible);
-        gameObject.GetComponent<FirstPersonMovement>().enabled = !isVisible;
-        gameObject.GetComponent<Jump>().enabled = !isVisible;
-        gameObject.GetComponent<Crouch>().enabled = !isVisible;
-        gameObject.GetComponentInChildren<FirstPersonLook>().enabled = !isVisible;
-        gameObject.GetComponent<Rigidbody>().isKinematic = isVisible;
-
-        Cursor.visible =  isVisible;
-
-        Cursor.lockState = (isVisible) ? CursorLockMode.None : CursorLockMode.Locked;
 
 
-    }
-
-    public void ActivateSaveText()
-    {
-        saveGameText.SetActive(true);
-    }
-    public void DeactivateSaveText()
-    {
-        saveGameText.SetActive(false);
-    }
 
     public void ActivateMachineGun()
     {
