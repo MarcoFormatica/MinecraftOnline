@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     public GameObject blockPrefab;
     public EblockType typeforNewBlocks;
     public List<EblockType> blockTypesIAmAllowedToUse;
-    public GameObject previewBlock;
+   // public GameObject previewBlock;
 
     // Start is called before the first frame update
     void Start()
@@ -164,7 +164,7 @@ public class Character : MonoBehaviour
     private void SetTypeForNewBlocks(EblockType eblockType)
     {
         typeforNewBlocks = eblockType;
-        previewBlock.GetComponent<Block>().InitializeBlock(eblockType);
+      //  previewBlock.GetComponent<Block>().InitializeBlock(eblockType);
 
     }
 

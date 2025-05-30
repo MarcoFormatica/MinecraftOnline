@@ -1311,11 +1311,7 @@ MonoBehaviour:
   head: {fileID: 4340050038154150798}
   blockPrefab: {fileID: 8417319341631196951, guid: 38fe58004df32bf41ab9e17e7aa5bbe9, type: 3}
   typeforNewBlocks: 0
-  blockTypesIAmAllowedToUse: 00000000010000000200000005000000
-  previewBlock: {fileID: 0}
-  numberOfCreatedBlocks: 0
-  menu: {fileID: 0}
-  saveGameText: {fileID: 0}
+  blockTypesIAmAllowedToUse: 00000000010000000200000005000000040000000300000006000000
 --- !u!1 &8117056250968449660
 GameObject:
   m_ObjectHideFlags: 0
