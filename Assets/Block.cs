@@ -1,3 +1,4 @@
+using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public class SerializableBlock
 {
     public Vector3 position;
     public EblockType blockType;
-    public bool indestructible;
+    public int indestructible;
     public int hp;
 }
 
@@ -38,13 +39,21 @@ public class BlockConfiguration
 
 }
 
-public class Block : MonoBehaviour
+public class Block : NetworkBehaviour
 {
     public List<BlockConfiguration> blockConfigurationDatabase;
-    public int hpMax;
-    public int hp;
-    public EblockType type;
-    public bool indestructible;
+
+    [Networked, OnChangedRender(nameof(RefreshBlockBrightness))]
+    public int HpMax { get; set; }
+
+    [Networked, OnChangedRender(nameof(RefreshBlockBrightness))]
+    public int Hp { get; set; }
+
+    [Networked, OnChangedRender(nameof(RefreshBlockAesthetic))]
+    public EblockType Type { get; set; }
+
+    [Networked]
+    public int Indestructible { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -61,32 +70,50 @@ public class Block : MonoBehaviour
     public SerializableBlock GetSerializableBlock()
     {
         SerializableBlock serializableBlock = new SerializableBlock();
-        serializableBlock.hp = hp;
-        serializableBlock.indestructible = indestructible;
-        serializableBlock.blockType = type;
+        serializableBlock.hp = Hp;
+        serializableBlock.indestructible = Indestructible;
+        serializableBlock.blockType = Type;
         serializableBlock.position = transform.position;
         return serializableBlock;
     }
 
     public void InitializeBlock(EblockType blockType)
     {
-        type = blockType;
+        Type = blockType;
         BlockConfiguration blockConfigurationSelected = blockConfigurationDatabase.Find(x => x.type == blockType);
-        hpMax = blockConfigurationSelected.hpMax;
-        SetHp(hpMax);
+
+        RefreshBlockAesthetic();
+        HpMax = blockConfigurationSelected.hpMax;
+        SetHp(HpMax);
+    }
+
+    public void RefreshBlockAesthetic()
+    {
+        BlockConfiguration blockConfigurationSelected = blockConfigurationDatabase.Find(x => x.type == Type);
         GetComponent<MeshRenderer>().material.mainTexture = blockConfigurationSelected.texture;
     }
+
     public void SetHp(int hpToSet)
     {
-        hp = hpToSet;
-        if (hp <= 0)
+        Hp = hpToSet;
+        if (Hp <= 0)
         {
-            Destroy(gameObject);
+            ReplicatedDestroy();
         }
         else
         {
-            GetComponent<MeshRenderer>().material.color = Color.white * ((float)hp / hpMax);
+            RefreshBlockBrightness();
         }
-       
+    }
+
+    public void ReplicatedDestroy()
+    {
+
+        Destroy(gameObject);
+    }
+
+    public void RefreshBlockBrightness()
+    {
+        GetComponent<MeshRenderer>().material.color = Color.white * ((float)Hp / HpMax);
     }
 }

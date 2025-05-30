@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6054493209871440373}
   - component: {fileID: 3839821430511706504}
+  - component: {fileID: 7070622601488724236}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,3 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockPrefab: {fileID: 8417319341631196951, guid: 38fe58004df32bf41ab9e17e7aa5bbe9, type: 3}
+--- !u!114 &7070622601488724236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739522367325901111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 374620516
+  ObjectInterest: 1
+  Flags: 131073
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 3839821430511706504}
+  ForceRemoteRenderTimeframe: 0

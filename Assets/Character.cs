@@ -61,9 +61,9 @@ public class Character : MonoBehaviour
                 Block blockHit = infoAboutTheRay.collider.gameObject.GetComponent<Block>();
                 if (blockHit != null)
                 {
-                    if (blockHit.indestructible == false)
+                    if (blockHit.Indestructible == 0)
                     {
-                        blockHit.SetHp(blockHit.hp - 1);
+                        blockHit.SetHp(blockHit.Hp - 1);
                     }
  
                 }
@@ -86,12 +86,7 @@ public class Character : MonoBehaviour
             Block blockHit = infoAboutTheRay.collider.gameObject.GetComponent<Block>();
             if (blockHit != null)
             {
-                GameObject spawnedBlockGO = Instantiate(blockPrefab);
-                spawnedBlockGO.GetComponent<Block>().InitializeBlock(typeforNewBlocks);
-                spawnedBlockGO.transform.position = blockHit.gameObject.transform.position + infoAboutTheRay.normal;
-
-
-
+                FindObjectOfType<GameManager>().SpawnCube(blockHit.gameObject.transform.position + infoAboutTheRay.normal, typeforNewBlocks, 0);
             }
         }
     }
@@ -116,7 +111,7 @@ public class Character : MonoBehaviour
             spawnedBlockGO.transform.position = serializableBlock.position;
             spawnedBlock.InitializeBlock(serializableBlock.blockType);
             spawnedBlock.SetHp(serializableBlock.hp);
-            spawnedBlock.indestructible = serializableBlock.indestructible;
+            spawnedBlock.Indestructible = serializableBlock.indestructible;
 
         }
         Debug.Log(i);

@@ -1,26 +1,36 @@
+using Fusion;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
-    public GameObject blockPrefab;
+    public NetworkObject blockPrefab;
     // Start is called before the first frame update
     void Start()
     {
-       
-            for (int j = 0; j < 10; j++)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    GameObject spawnedBlockGO = Instantiate(blockPrefab);
-                    spawnedBlockGO.transform.position = new Vector3(j, 0, i);
-                    spawnedBlockGO.GetComponent<Block>().InitializeBlock(EblockType.Erba);
-                    spawnedBlockGO.GetComponent<Block>().indestructible = true;
-                }
-            }
-        
+
     }
+
+    public void InitializeTerrain()
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                SpawnCube(new Vector3(i,0,j), EblockType.Erba,1);
+            }
+        }
+    }
+
+    public void SpawnCube(Vector3 position, EblockType type, int indestructable)
+    {
+        NetworkObject spawnedBlockGO = Runner.Spawn(blockPrefab, position);
+        spawnedBlockGO.GetComponent<Block>().InitializeBlock(type);
+        spawnedBlockGO.GetComponent<Block>().Indestructible = indestructable;
+    }
+
+
 
     // Update is called once per frame
     void Update()
