@@ -12,13 +12,16 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    public void InitializeTerrain()
+    public IEnumerator InitializeTerrain()
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < 20; j++)
         {
-            for (int i = 0; i < 20; i++)
+            Debug.Log("j");
+            for (int i = 0; i < 30; i++)
             {
-                RPC_SpawnCube(new Vector3(i,0,j), EblockType.Erba,1);
+                Debug.Log("i");
+                SpawnCube(new Vector3(i,0,j), EblockType.Erba,1);
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }
@@ -26,9 +29,17 @@ public class GameManager : NetworkBehaviour
     [Rpc(sources:RpcSources.All, targets:RpcTargets.StateAuthority)]
     public void RPC_SpawnCube(Vector3 position, EblockType type, int indestructable)
     {
+        Debug.Log(nameof(RPC_SpawnCube));
+        SpawnCube(position, type, indestructable);
+    }
+
+    private void SpawnCube(Vector3 position, EblockType type, int indestructable)
+    {
+        Debug.Log(nameof(SpawnCube) + position.ToString());
         NetworkObject spawnedBlockGO = Runner.Spawn(blockPrefab, position);
         spawnedBlockGO.GetComponent<Block>().InitializeBlock(type);
         spawnedBlockGO.GetComponent<Block>().Indestructible = indestructable;
+        spawnedBlockGO.transform.position = position;
     }
 
 

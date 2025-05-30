@@ -16,7 +16,7 @@ public class ConnectionManager : MonoBehaviour , INetworkRunnerCallbacks
         if(runner.IsSharedModeMasterClient) 
         {
             NetworkObject gameManager = runner.Spawn(gameManagerPrefab);
-            gameManager.GetComponent<GameManager>().InitializeTerrain();
+           StartCoroutine(gameManager.GetComponent<GameManager>().InitializeTerrain());
         }
         NetworkObject spawnedPlayer = runner.Spawn(playerPrefab, playerSpawnPoint.position);
 
