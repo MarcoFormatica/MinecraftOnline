@@ -84,7 +84,7 @@ public class Block : NetworkBehaviour
 
         RefreshBlockAesthetic();
         HpMax = blockConfigurationSelected.hpMax;
-        SetHp(HpMax);
+        RPC_SetHp(HpMax);
     }
 
     public void RefreshBlockAesthetic()
@@ -93,7 +93,8 @@ public class Block : NetworkBehaviour
         GetComponent<MeshRenderer>().material.mainTexture = blockConfigurationSelected.texture;
     }
 
-    public void SetHp(int hpToSet)
+    [Rpc(sources: RpcSources.All, targets: RpcTargets.StateAuthority)]
+    public void RPC_SetHp(int hpToSet)
     {
         Hp = hpToSet;
         if (Hp <= 0)

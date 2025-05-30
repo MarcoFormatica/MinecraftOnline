@@ -72,7 +72,7 @@ public class Character : NetworkBehaviour
                 {
                     if (blockHit.Indestructible == 0)
                     {
-                        blockHit.SetHp(blockHit.Hp - 1);
+                        blockHit.RPC_SetHp(blockHit.Hp - 1);
                     }
  
                 }
@@ -95,7 +95,7 @@ public class Character : NetworkBehaviour
             Block blockHit = infoAboutTheRay.collider.gameObject.GetComponent<Block>();
             if (blockHit != null)
             {
-                FindObjectOfType<GameManager>().SpawnCube(blockHit.gameObject.transform.position + infoAboutTheRay.normal, typeforNewBlocks, 0);
+                FindObjectOfType<GameManager>().RPC_SpawnCube(blockHit.gameObject.transform.position + infoAboutTheRay.normal, typeforNewBlocks, 0);
             }
         }
     }
@@ -119,7 +119,7 @@ public class Character : NetworkBehaviour
             Block spawnedBlock = spawnedBlockGO.GetComponent<Block>();
             spawnedBlockGO.transform.position = serializableBlock.position;
             spawnedBlock.InitializeBlock(serializableBlock.blockType);
-            spawnedBlock.SetHp(serializableBlock.hp);
+            spawnedBlock.RPC_SetHp(serializableBlock.hp);
             spawnedBlock.Indestructible = serializableBlock.indestructible;
 
         }

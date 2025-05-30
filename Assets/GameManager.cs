@@ -18,12 +18,13 @@ public class GameManager : NetworkBehaviour
         {
             for (int i = 0; i < 20; i++)
             {
-                SpawnCube(new Vector3(i,0,j), EblockType.Erba,1);
+                RPC_SpawnCube(new Vector3(i,0,j), EblockType.Erba,1);
             }
         }
     }
 
-    public void SpawnCube(Vector3 position, EblockType type, int indestructable)
+    [Rpc(sources:RpcSources.All, targets:RpcTargets.StateAuthority)]
+    public void RPC_SpawnCube(Vector3 position, EblockType type, int indestructable)
     {
         NetworkObject spawnedBlockGO = Runner.Spawn(blockPrefab, position);
         spawnedBlockGO.GetComponent<Block>().InitializeBlock(type);
