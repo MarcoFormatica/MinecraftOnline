@@ -116,4 +116,11 @@ public class Block : NetworkBehaviour
     {
         GetComponent<MeshRenderer>().material.color = Color.white * ((float)Hp / HpMax);
     }
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        RefreshBlockAesthetic();
+        RefreshBlockBrightness();
+    }
 }
