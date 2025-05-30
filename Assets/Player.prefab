@@ -1171,6 +1171,8 @@ GameObject:
   - component: {fileID: 1079946589851652380}
   - component: {fileID: 3875791308139212310}
   - component: {fileID: 1897427925779181186}
+  - component: {fileID: 6101670298672179463}
+  - component: {fileID: 5108799935280951945}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1312,6 +1314,43 @@ MonoBehaviour:
   blockPrefab: {fileID: 8417319341631196951, guid: 38fe58004df32bf41ab9e17e7aa5bbe9, type: 3}
   typeforNewBlocks: 0
   blockTypesIAmAllowedToUse: 00000000010000000200000005000000040000000300000006000000
+--- !u!114 &6101670298672179463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965274593038591553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 3649961776
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1897427925779181186}
+  - {fileID: 5108799935280951945}
+  ForceRemoteRenderTimeframe: 0
+--- !u!114 &5108799935280951945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7965274593038591553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 1
 --- !u!1 &8117056250968449660
 GameObject:
   m_ObjectHideFlags: 0

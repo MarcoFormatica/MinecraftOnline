@@ -108,8 +108,7 @@ public class Block : NetworkBehaviour
 
     public void ReplicatedDestroy()
     {
-
-        Destroy(gameObject);
+        Runner.Despawn(GetComponent<NetworkObject>());
     }
 
     public void RefreshBlockBrightness()

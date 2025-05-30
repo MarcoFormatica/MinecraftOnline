@@ -1,3 +1,4 @@
+using Fusion;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using Unity.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : NetworkBehaviour
 {
     public Transform head;
     public GameObject blockPrefab;
@@ -19,18 +20,26 @@ public class Character : MonoBehaviour
     void Start()
     {
         SetTypeForNewBlocks(blockTypesIAmAllowedToUse.First());
-      /*  if (FindObjectOfType<MainMenuController>().shouldLoad == true)
+    }
+
+    public override void Spawned()
+    {
+        base.Spawned();
+        if (HasStateAuthority == false)
         {
-            LoadWorld();
+            GetComponent<FirstPersonMovement>().enabled = false;
+            GetComponent<Crouch>().enabled = false;
+            GetComponent<Jump>().enabled = false;
+            GetComponentInChildren<Camera>().enabled = false;
+            GetComponentInChildren<FirstPersonLook>().enabled = false;
         }
-      */
     }
 
 
     // Update is called once per frame
     void Update()
     {
-
+        if (HasStateAuthority == false) { return; }
 
 
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
